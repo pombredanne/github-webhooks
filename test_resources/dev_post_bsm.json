@@ -1,0 +1,95 @@
+{
+  "ref": "refs/heads/dev-SE-861",
+  "after": "d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+  "before": "d9e4f44a916fa25a73b4ae0026b7bb3280a6b162",
+  "created": false,
+  "deleted": false,
+  "forced": true,
+  "compare": "https://github.com/dataxu/business-service-monitor/compare/d9e4f44a916f...d0291e59dd4f",
+  "commits": [
+    {
+      "id": "d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+      "distinct": true,
+      "message": "[dev-SE-861] Set threshold on exchange conn mon\n- Threshold set to 100 requests/s before measuring wins\n- Updated rates in spec and added basic failure scenario\n- Disabled the lowest requested exchanges in APAC",
+      "timestamp": "2014-07-21T17:13:41-04:00",
+      "url": "https://github.com/dataxu/business-service-monitor/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+      "author": {
+        "name": "Josh Begleiter",
+        "email": "jbegleiter@dataxu.com",
+        "username": "kaneda"
+      },
+      "committer": {
+        "name": "Josh Begleiter",
+        "email": "jbegleiter@dataxu.com",
+        "username": "kaneda"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "src/main/bsm/config/datacenters.yaml",
+        "src/main/bsm/lib/bsm/exchange_connection_monitor.rb",
+        "src/main/bsm/spec/lib/bsm/exchange_connection_monitor_spec.rb"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+    "distinct": true,
+    "message": "[dev-SE-861] Set threshold on exchange conn mon\n- Threshold set to 100 requests/s before measuring wins\n- Updated rates in spec and added basic failure scenario\n- Disabled the lowest requested exchanges in APAC",
+    "timestamp": "2014-07-21T17:13:41-04:00",
+    "url": "https://github.com/dataxu/business-service-monitor/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+    "author": {
+      "name": "Josh Begleiter",
+      "email": "jbegleiter@dataxu.com",
+      "username": "kaneda"
+    },
+    "committer": {
+      "name": "Josh Begleiter",
+      "email": "jbegleiter@dataxu.com",
+      "username": "kaneda"
+    },
+    "added": [
+
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+      "src/main/bsm/config/datacenters.yaml",
+      "src/main/bsm/lib/bsm/exchange_connection_monitor.rb",
+      "src/main/bsm/spec/lib/bsm/exchange_connection_monitor_spec.rb"
+    ]
+  },
+  "repository": {
+    "id": 15620337,
+    "name": "business-service-monitor",
+    "url": "https://github.com/dataxu/business-service-monitor",
+    "watchers": 1,
+    "stargazers": 1,
+    "forks": 1,
+    "fork": false,
+    "size": 23780,
+    "owner": {
+      "name": "dataxu",
+      "email": null
+    },
+    "private": true,
+    "open_issues": 2,
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "language": "Ruby",
+    "created_at": 1388785440,
+    "pushed_at": 1405977235,
+    "master_branch": "master",
+    "organization": "dataxu"
+  },
+  "pusher": {
+    "name": "kaneda",
+    "email": "kanedasan@gmail.com"
+  }
+}

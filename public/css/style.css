@@ -1,0 +1,18 @@
+@keyframes myfirst
+{
+0% {background: white;}
+50% {background: #ddddff;}
+100% {background: white;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0% {background: white;}
+50% {background: #ddddff;}
+100% {background: white;}
+}
+.loading{
+  /*background: #eeeeff;*/
+  animation: myfirst 1s infinite;
+  -webkit-animation: myfirst 1s infinite; /* Safari and Chrome */
+}

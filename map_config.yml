@@ -1,0 +1,42 @@
+push:
+    - match:
+        owner: "dataxu"
+        branch: "master"
+      trigger:
+        job: "{repo}_master"
+
+    - match:
+        owner: "dataxu"
+        branch: "dev-.*"
+      trigger:
+        job: "{repo}_dev-feature"
+        params:
+            branch: "{branch}"
+
+    - match:
+        owner: dataxu
+        branch: "rel-.*"
+        no_message: '^\[auto\].*$'
+        created: true
+      create_job:
+        job: "{repo}_{branch}"
+        template: "{repo}_rel-template"
+        replace:
+            DX_GIT_BRANCH: "{branch}"
+      trigger:
+        job: "{repo}_{branch}"
+        params:
+          SKIP_TESTS: true
+
+pr:
+    - match:
+        owner: ".*"
+        branch: ".*"
+        actions:
+          - opened
+          - synchronize
+      trigger:
+        job: "{repo}_dev-feature"
+        params:
+            owner: "{owner}"
+            branch: "{branch}"

@@ -1,0 +1,123 @@
+{
+  "ref": "refs/heads/master",
+  "after": "d4e5330448fd8e0a42f44df2187318149b738672",
+  "before": "f2b08455b05bd30f1fc1cdf2b8adce76bd4da559",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "compare": "https://github.com/dataxu/business-service-monitor/compare/f2b08455b05b...d4e5330448fd",
+  "commits": [
+    {
+      "id": "d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+      "distinct": false,
+      "message": "[dev-SE-861] Set threshold on exchange conn mon\n- Threshold set to 100 requests/s before measuring wins\n- Updated rates in spec and added basic failure scenario\n- Disabled the lowest requested exchanges in APAC",
+      "timestamp": "2014-07-21T17:13:41-04:00",
+      "url": "https://github.com/dataxu/business-service-monitor/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+      "author": {
+        "name": "Josh Begleiter",
+        "email": "jbegleiter@dataxu.com",
+        "username": "kaneda"
+      },
+      "committer": {
+        "name": "Josh Begleiter",
+        "email": "jbegleiter@dataxu.com",
+        "username": "kaneda"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "src/main/bsm/config/datacenters.yaml",
+        "src/main/bsm/lib/bsm/exchange_connection_monitor.rb",
+        "src/main/bsm/spec/lib/bsm/exchange_connection_monitor_spec.rb"
+      ]
+    },
+    {
+      "id": "d4e5330448fd8e0a42f44df2187318149b738672",
+      "distinct": true,
+      "message": "Merge pull request #92 from dataxu/dev-SE-861\n\n[dev-SE-861] Set threshold on exchange conn mon",
+      "timestamp": "2014-07-22T10:46:48-04:00",
+      "url": "https://github.com/dataxu/business-service-monitor/commit/d4e5330448fd8e0a42f44df2187318149b738672",
+      "author": {
+        "name": "Josh Begleiter",
+        "email": "kanedasan@gmail.com",
+        "username": "kaneda"
+      },
+      "committer": {
+        "name": "Josh Begleiter",
+        "email": "kanedasan@gmail.com",
+        "username": "kaneda"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "src/main/bsm/config/datacenters.yaml",
+        "src/main/bsm/lib/bsm/exchange_connection_monitor.rb",
+        "src/main/bsm/spec/lib/bsm/exchange_connection_monitor_spec.rb"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "d4e5330448fd8e0a42f44df2187318149b738672",
+    "distinct": true,
+    "message": "Merge pull request #92 from dataxu/dev-SE-861\n\n[dev-SE-861] Set threshold on exchange conn mon",
+    "timestamp": "2014-07-22T10:46:48-04:00",
+    "url": "https://github.com/dataxu/business-service-monitor/commit/d4e5330448fd8e0a42f44df2187318149b738672",
+    "author": {
+      "name": "Josh Begleiter",
+      "email": "kanedasan@gmail.com",
+      "username": "kaneda"
+    },
+    "committer": {
+      "name": "Josh Begleiter",
+      "email": "kanedasan@gmail.com",
+      "username": "kaneda"
+    },
+    "added": [
+
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+      "src/main/bsm/config/datacenters.yaml",
+      "src/main/bsm/lib/bsm/exchange_connection_monitor.rb",
+      "src/main/bsm/spec/lib/bsm/exchange_connection_monitor_spec.rb"
+    ]
+  },
+  "repository": {
+    "id": 15620337,
+    "name": "business-service-monitor",
+    "url": "https://github.com/dataxu/business-service-monitor",
+    "watchers": 1,
+    "stargazers": 1,
+    "forks": 1,
+    "fork": false,
+    "size": 23780,
+    "owner": {
+      "name": "dataxu",
+      "email": null
+    },
+    "private": true,
+    "open_issues": 1,
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "language": "Ruby",
+    "created_at": 1388785440,
+    "pushed_at": 1406040408,
+    "master_branch": "master",
+    "organization": "dataxu"
+  },
+  "pusher": {
+    "name": "kaneda",
+    "email": "kanedasan@gmail.com"
+  }
+}

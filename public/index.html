@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html ng-app='webhooks' lang="en">
+  <head>
+    <title>Github Webhooks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class='container'>
+        <div ng-controller="WebhooksControl">
+            <button class='btn btn-default pull-right' ng-class="{'loading': active_requests > 0}" ng-click="update_data()" title='{{ active_requests }} active requests'>Refresh</button>
+            <h1>Github WebHooks</h1>
+            <div ng-init="update_data(); tab='events'">
+                <div ng-switch="app_data.status">
+                    <div ng-switch-when="running" class="alert alert-success" role="alert"><span class='glyphicon glyphicon-check'></span>&nbsp;&nbsp;Systems Seem Operational. Triggering on <a target='_blank' href='{{ app_data.jenkins.host }}'>{{ app_data.jenkins.host }}</a> as {{ app_data.jenkins.user }}.</div>
+                    <div ng-switch-default class="alert alert-danger" role="alert"><span class='glyphicon glyphicon-check'></span>&nbsp;&nbsp;System seems broken (msg={{ app_data.status }}).</div>
+                </div>
+                <ul class="nav nav-pills">
+                  <li ng-class="{active: tab == 'events'}" ng-click="tab='events'"><a href="#"><span class="badge pull-right">{{ app_data.events.length }}</span>Events&nbsp;&nbsp;</a></li>
+                  <li ng-class="{active: tab == 'errors'}" ng-click="tab='errors'"><a href="#"><span class="badge pull-right">{{ app_data.errors.length }}</span>Errors&nbsp;&nbsp;</a></li>
+                  <li ng-class="{active: tab == 'configs'}" ng-click="tab='configs'"><a href="#">Configs&nbsp;&nbsp;</a></li>
+                  <li ng-class="{active: tab == 'meta'}" ng-click="tab='meta'"><a href="#">Debug</a></li>
+                </ul>
+
+                <div ng-class="{hide: tab != 'events'}">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                              <th class='col-md-1'>Time</th>
+                              <th class='col-md-1'>Pusher</th>
+                              <th class='col-md-2'>Repo</th>
+                              <th class='col-md-1'>Branch / PR</th>
+                              <th class='col-md-1'>Hash</th>
+                              <th class='col-md-2'>Action</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                          <td><i class='glyphicon glyphicon-search'></i></td>
+                          <td><input ng-model="search_data.pusher" type='text'/></td>
+                          <td><input ng-model="search_data.repo" type='text'/></td>
+                          <td><input ng-model="search_data.branch" type='text'/></td>
+                          <td><input ng-model="search_data.hash" type='text'/></td>
+                          <td><button ng-click="search()" type='button' class='btn btn-default'>Search</button></td>
+                        </tr>
+                        <tr ng-repeat="event in app_data.events">
+                            <td>{{ event.time | fromNow }}</td>
+                            <td><a target='_blank' href='http://www.github.com/{{ event.pusher }}'>{{ event.pusher }}</a></td>
+                            <td ng-switch="event.type">
+                              <a ng-switch-when="push" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}'>{{ event.repo }}</a>
+                              <a ng-switch-when="pull_request" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}'>{{ event.repo_owner }}/{{ event.repo }}</a>
+                            </td>
+                            <td ng-switch="event.type">
+                              <a ng-switch-when="push" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/tree/{{ event.branch }}'>{{ event.branch }}</a>
+                              <a ng-switch-when="pull_request" target='_blank' href='{{ event.pr_url }}'>#{{ event.pr_number }} {{ event.branch }}</a>
+                            </td>
+                            <td><a target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/commit/{{ event.hash }}'>{{ event.hash | short_hash }}</a></td>
+                            <td ng-switch="event.job_name">
+                              <span ng-switch-when="false">{{ event.action }}</span>
+                              <a target='_blank' ng-switch-default href='{{ app_data.jenkins.host }}/job/{{ event.job_name }}'>{{ event.action }}</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div ng-class="{hide: tab != 'configs'}">
+                  <h2>Push Triggers</h2>
+                  <div class='row' ng-repeat="handler in data().map_config.push">
+                    <pre class="col-md-6"><span ng-repeat="(k, match_params) in handler.match">{{ k }} = "{{ match_params }}"
+</span></pre>
+                    <pre class="col-md-6"><span ng-repeat="(k, trigger_params) in handler.trigger">{{ k }} = "{{ trigger_params }}"
+</span></pre>
+                  </div>
+                  <h2>Pull-Request Triggers</h2>
+                  <pre>{{ data().map_config.pr }}</pre>
+                    
+                </div>
+
+                <div ng-class="{hide: tab != 'errors'}">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th class='col-md-2'>Time</th>
+                              <th class='col-md-3'>Where</th>
+                              <th class='col-md-3'>Message</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="elem in app_data.errors">
+                            <td>{{ elem.time |fromNow }}</td>
+                            <td>{{ elem.where }}</td>
+                            <td>{{ elem.msg }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <pre ng-class="{hide: tab != 'meta'}">{{ data() }}{{ get_events() }}</pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/momentjs/moment.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
