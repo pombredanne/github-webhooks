@@ -1,9 +1,9 @@
 {
   "name": "webhooks",
   "version": "0.1.0",
-  "homepage": "https://github.com/ferrants/webhooks",
+  "homepage": "https://github.com/dataxu/github-webhooks",
   "authors": [
-    "Matt Ferrante <mferrante3@gmail.com>"
+    "Matt Ferrante <mferrante@dataxu.com>"
   ],
   "license": "MIT",
   "private": true,
