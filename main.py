@@ -245,6 +245,8 @@ def trigger():
                 events_coll.save(event_gen)
                 event_gen.pop('_id', None)
                 return_data['event'] = event_gen
+                if app.config['TEST']:
+                    return_data['test_mode'] = True
 
         return (jsonify(state=state, msg=msg, **return_data), 200)
     except Exception as e:
