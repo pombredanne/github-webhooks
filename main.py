@@ -42,6 +42,9 @@ for key in app_configs:
         app_configs[key] = os.environ[key]
     print "Loading {0} as {1}".format(key, app_configs[key])
 
+for config in ['DEBUG', 'TEST']:
+    app_configs[config] = str(app_configs[config]).lower() == 'true'
+
 app = Flask(__name__, static_url_path='', static_folder='public/')
 
 # Load default config and override config from an environment variable
