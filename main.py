@@ -224,7 +224,7 @@ def trigger():
                                             job_config = job_config.replace(key, actual_handler['create_job']['replace'][key])
 
                                     new_job = jenkins_instance.create_job(actual_handler['create_job']['job'], job_config)
-                                    jenkins_instance.enable_job(new_job_name)
+                                    jenkins_instance.enable_job(actual_handler['create_job']['job'])
 
                                 except JenkinsException as jenkins_exception:
                                     state = 'error'
