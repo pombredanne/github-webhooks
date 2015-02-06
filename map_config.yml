@@ -25,7 +25,7 @@ push:
       trigger:
         job: "{repo}_{branch}"
         params:
-          SKIP_TESTS: true
+          SKIP_TESTS: 'true'
 
 pr:
     - match:
