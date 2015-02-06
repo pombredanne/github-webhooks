@@ -16,7 +16,6 @@ push:
     - match:
         owner: dataxu
         branch: "rel-.*"
-        no_message: '^\[auto\].*$'
         created: true
       create_job:
         job: "{repo}_{branch}"
