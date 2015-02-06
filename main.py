@@ -231,7 +231,6 @@ def trigger():
                                     new_job = jenkins_instance.create_job(actual_handler['create_job']['job'], job_config)
                                     where_error = 'create_job/enable_job'
                                     jenkins_instance.enable_job(actual_handler['create_job']['job'])
-                                    time.sleep(0.2)
 
                                 except JenkinsException as jenkins_exception:
                                     state = 'error'
