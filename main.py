@@ -189,6 +189,7 @@ def trigger():
                         for potential_handler in job_map_config['push']:
                             matcher = potential_handler['match']
                             if ( ('branch' not in matcher or re.search(matcher['branch'], branch)) and
+                                 ('repo' not in matcher or re.search(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
                                  ('owner' not in matcher or re.search(matcher['owner'], owner)) and
@@ -199,6 +200,7 @@ def trigger():
                         for potential_handler in job_map_config['pr']:
                             matcher = potential_handler['match']
                             if ( ('branch' not in matcher or re.search(matcher['branch'], branch)) and
+                                 ('repo' not in matcher or re.search(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
                                  ('owner' not in matcher or re.search(matcher['owner'], owner)) and
