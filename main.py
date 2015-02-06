@@ -215,33 +215,41 @@ def trigger():
                         event_gen['job_name'] = trigger['job']
 
                         if 'create_job' in handler:
+                            where_error = 'create_job'
                             msg = "created {0} job from {1}".format(actual_handler['create_job']['job'], actual_handler['create_job']['template'])
                             if not app.config['TEST']:
                                 try:
+                                    where_error = 'create_job/get_job_config'
                                     job_config = jenkins_instance.get_job_config(actual_handler['create_job']['template'])
                                     if 'replace' in actual_handler['create_job']:
                                         for key in actual_handler['create_job']['replace']:
                                             job_config = job_config.replace(key, actual_handler['create_job']['replace'][key])
 
+                                    where_error = 'create_job/create_job'
                                     new_job = jenkins_instance.create_job(actual_handler['create_job']['job'], job_config)
+                                    where_error = 'create_job/enable_job'
                                     jenkins_instance.enable_job(actual_handler['create_job']['job'])
+                                    time.sleep(0.2)
 
                                 except JenkinsException as jenkins_exception:
                                     state = 'error'
-                                    error_coll.insert({'time': int(time.time() * 1000), "where": 'create_job', "msg": "{0}".format(jenkins_exception)})
+                                    error_coll.insert({'time': int(time.time() * 1000), "where": where_error, "msg": "{0}".format(jenkins_exception)})
                                     msg = "Jenkins Error"
 
                         
                         if not app.config['TEST']:
+                            where_error = 'trigger'
                             try:
                                 if ('params' in trigger):
+                                    where_error = 'trigger/param'
                                     jenkins_instance.build_job(trigger['job'], parameters=trigger['params'], token=app.config['JENKINS_JOB_TOKEN'])
                                 else:
+                                    where_error = 'trigger/no_param'
                                     jenkins_instance.build_job(trigger['job'], token=app.config['JENKINS_JOB_TOKEN'])
 
                             except JenkinsException as jenkins_exception:
                                 state = 'error'
-                                error_coll.insert({'time': int(time.time() * 1000), "where": 'trigger', "msg": "{0}".format(jenkins_exception)})
+                                error_coll.insert({'time': int(time.time() * 1000), "where": where_error, "msg": "{0}".format(jenkins_exception)})
                                 msg = "Jenkins Error"
 
                 event_gen['action'] = msg
