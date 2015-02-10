@@ -37,5 +37,5 @@ pr:
       trigger:
         job: "{repo}_dev-feature"
         params:
-            owner: "{owner}"
+            fork: "{owner}"
             branch: "{branch}"
