@@ -29,6 +29,18 @@ push:
 
 pr:
     - match:
+        repo: "(user-interface|cms|spend-predictor|data-slicing-service)"
+        owner: ".*"
+        branch: ".*"
+        actions:
+          - opened
+          - synchronize
+      trigger:
+        job: "{repo}_pr"
+        params:
+            fork: "{owner}"
+            branch: "{branch}"
+    - match:
         owner: ".*"
         branch: ".*"
         actions:
