@@ -18,15 +18,10 @@ push:
         owner: dataxu
         branch: "rel-.*"
         created: true
-      create_job:
-        job: "{repo}_{branch}"
-        template: "{repo}_rel-template"
-        replace:
-            DX_GIT_BRANCH: "{branch}"
       trigger:
-        job: "{repo}_{branch}"
+        job: "{repo}_rel"
         params:
-          SKIP_TESTS: 'true'
+            branch: "{branch}"
 
 pr:
     - match:

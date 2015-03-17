@@ -80,7 +80,7 @@ class WebhooksTestCase(unittest.TestCase):
     def test_trigger_rel_new(self):
         data = self.github_trigger('rel_post_bsm_new.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'created business-service-monitor_rel-4.18 job from business-service-monitor_rel-template'
+        assert data['msg'] == 'triggered business-service-monitor_rel job'
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
