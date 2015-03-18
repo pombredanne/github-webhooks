@@ -188,22 +188,22 @@ def trigger():
                     if event == "push":
                         for potential_handler in job_map_config['push']:
                             matcher = potential_handler['match']
-                            if ( ('branch' not in matcher or re.search(matcher['branch'], branch)) and
-                                 ('repo' not in matcher or re.search(matcher['repo'], repo)) and
+                            if ( ('branch' not in matcher or re.match(matcher['branch'], branch)) and
+                                 ('repo' not in matcher or re.match(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
-                                 ('owner' not in matcher or re.search(matcher['owner'], owner)) and
+                                 ('owner' not in matcher or re.match(matcher['owner'], owner)) and
                                  ('created' not in matcher or matcher['created'] == created) ):
                                 handler = potential_handler
 
                     elif event == "pull_request":
                         for potential_handler in job_map_config['pr']:
                             matcher = potential_handler['match']
-                            if ( ('branch' not in matcher or re.search(matcher['branch'], branch)) and
-                                 ('repo' not in matcher or re.search(matcher['repo'], repo)) and
+                            if ( ('branch' not in matcher or re.match(matcher['branch'], branch)) and
+                                 ('repo' not in matcher or re.match(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
-                                 ('owner' not in matcher or re.search(matcher['owner'], owner)) and
+                                 ('owner' not in matcher or re.match(matcher['owner'], owner)) and
                                  ('created' not in matcher or matcher['created'] == created) and
                                  ('actions' not in matcher or json['action'] in matcher['actions']) ):
                                 handler = potential_handler
