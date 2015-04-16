@@ -211,7 +211,10 @@ def trigger():
                     if not handler:
                         pass
                     else:
-                        actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}',branch).replace('{repo}', repo).replace('{owner}', owner))
+                        if pr_number:
+                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}',branch).replace('{repo}', repo).replace('{owner}', owner).replace('{pr_number}', str(pr_number)))
+                        else:
+                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}',branch).replace('{repo}', repo).replace('{owner}', owner))
                         trigger = actual_handler['trigger']
                         msg = "triggered {0} job".format(trigger['job'])
                         event_gen['job_name'] = trigger['job']
