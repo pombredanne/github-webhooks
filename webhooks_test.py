@@ -115,6 +115,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['branch'] == 'dev-test-pr-hook'
         assert data['event']['pusher'] == 'ferrants'
         assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pr_number'] == 134
 
 
     def test_new_forked_pr(self):
@@ -127,6 +128,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['branch'] == 'dev-test-pr-hook'
         assert data['event']['pusher'] == 'ferrants'
         assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pr_number'] == 135
 
 
     def test_update_forked_pr(self):
@@ -139,6 +141,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['branch'] == 'dev-test-pr-hook'
         assert data['event']['pusher'] == 'ferrants'
         assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pr_number'] == 135
 
     def test_close_pr(self):
         data = self.github_trigger('close_pr.json', github_event_type='pull_request')
@@ -150,6 +153,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['branch'] == 'dev-test-pr-hook'
         assert data['event']['pusher'] == 'ferrants'
         assert data['event']['job_name'] == False
+        assert data['event']['pr_number'] == 134
 
     # Regression
     def test_delete_push(self):
