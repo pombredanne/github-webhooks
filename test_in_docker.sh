@@ -2,7 +2,7 @@
 env
 docker ps
 
-mongo_container_id=$(docker run -d --name mongodb_webhooks_test${BUILD_NUMBER} -p 27017:27017 -v /tmp/mongodb${BUILD_NUMBER}:/data/db dockerfile/mongodb mongod --smallfiles)
+mongo_container_id=$(docker run -d --name mongodb_webhooks_test${BUILD_NUMBER} -p 27017:27017 -v /tmp/mongodb${BUILD_NUMBER}:/data/db mongo mongod --smallfiles)
 sleep 10
 docker ps
 docker logs ${mongo_container_id}
