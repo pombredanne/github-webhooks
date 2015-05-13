@@ -23,14 +23,10 @@ import os
 
 from flask import Flask, jsonify
 from flask import request
-from flask import Response
-from flask import render_template
 
 from pymongo import MongoClient
 from pymongo import DESCENDING
 
-from httplib2 import Http
-from pprint import pprint
 from jenkins import Jenkins
 from jenkins import JenkinsException
 
@@ -57,11 +53,12 @@ events_coll = db.events
 error_coll = db.errors
 
 jenkins_instance = Jenkins(app.config['JENKINS_URL'],
-    app.config['JENKINS_USER'],
-    app.config['JENKINS_USER_TOKEN'])
+                           app.config['JENKINS_USER'],
+                           app.config['JENKINS_USER_TOKEN'])
 
 running_status = 'running'
 job_map_config = {}
+
 
 @app.route('/reload_config')
 def load_job_map_config():
@@ -76,6 +73,7 @@ load_job_map_config()
 def index():
     return app.send_static_file('index.html')
 
+
 @app.route('/data')
 def data():
     try:
@@ -84,12 +82,13 @@ def data():
             jenkins={'host': app.config['JENKINS_URL'], 'user': app.config['JENKINS_USER']},
             events=list(events_coll.find({}, {'_id': 0}).limit(200).sort('time', DESCENDING)),
             map_config=job_map_config,
-            errors=list(error_coll.find({}, {'_id': 0}).limit(200).sort('time', DESCENDING)))
-        , 200)
+            errors=list(error_coll.find({}, {'_id': 0}).limit(200).sort('time', DESCENDING))),
+            200)
     except:
         return (jsonify(status='broken'), 200)
 
-@app.route('/test', methods = ['GET', 'POST'])
+
+@app.route('/test', methods=['GET', 'POST'])
 def test():
     data = {}
     # print "TEST"
@@ -99,7 +98,8 @@ def test():
         data = simplejson.loads(request.data)
     return (jsonify(state='done', msg='test success', data=data), 200)
 
-@app.route('/search', methods = ['GET', 'POST'])
+
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     return_data = {'results': []}
     state = 'done'
@@ -113,7 +113,7 @@ def search():
     return (jsonify(state=state, **return_data), 200)
 
 
-@app.route('/trigger', methods = ['GET', 'POST'])
+@app.route('/trigger', methods=['GET', 'POST'])
 def trigger():
     """
     The main entry point; the URL hit is the root of this
@@ -212,9 +212,9 @@ def trigger():
                         pass
                     else:
                         if pr_number:
-                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}',branch).replace('{repo}', repo).replace('{owner}', owner).replace('{pr_number}', str(pr_number)))
+                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}', branch).replace('{repo}', repo).replace('{owner}', owner).replace('{pr_number}', str(pr_number)))
                         else:
-                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}',branch).replace('{repo}', repo).replace('{owner}', owner))
+                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}', branch).replace('{repo}', repo).replace('{owner}', owner))
                         trigger = actual_handler['trigger']
                         msg = "triggered {0} job".format(trigger['job'])
                         event_gen['job_name'] = trigger['job']
@@ -240,7 +240,6 @@ def trigger():
                                     error_coll.insert({'time': int(time.time() * 1000), "where": where_error, "msg": "{0}".format(jenkins_exception)})
                                     msg = "Jenkins Error"
 
-                        
                         if not app.config['TEST']:
                             where_error = 'trigger'
                             try:
