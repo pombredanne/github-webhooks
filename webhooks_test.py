@@ -8,11 +8,10 @@ class WebhooksTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        main.app.config['TEST'] = True # dont trigger jobs
+        main.app.config['TEST'] = True  # dont trigger jobs
         main.app.config['MONGO_DB_NAME'] = 'webhooks-test'
         self.app = main.app.test_client()
         main.clear_db()
-
 
     def tearDown(self):
         main.clear_db()
@@ -28,7 +27,7 @@ class WebhooksTestCase(unittest.TestCase):
         return simplejson.loads(result.data)
 
     def load_json_resource(self, filename):
-        with open(os.path.join(os.path.dirname(__file__),'test_resources', filename)) as data_file:
+        with open(os.path.join(os.path.dirname(__file__), 'test_resources', filename)) as data_file:
             data = simplejson.load(data_file)
         return data
 
@@ -76,7 +75,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert 'action' in data['event']
         assert data['event']['job_name'] == 'business-service-monitor_dev-feature'
 
-
     def test_trigger_rel_new(self):
         data = self.github_trigger('rel_post_bsm_new.json')
         assert data['state'] == 'done'
@@ -84,7 +82,7 @@ class WebhooksTestCase(unittest.TestCase):
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
-        assert data['event']['job_name'] != False
+        assert data['event']['job_name'] is not False
 
     def test_trigger_rel_notnew(self):
         data = self.github_trigger('rel_post_bsm_notnew.json')
@@ -93,7 +91,7 @@ class WebhooksTestCase(unittest.TestCase):
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
-        assert data['event']['job_name'] == False
+        assert data['event']['job_name'] is False
 
     def test_trigger_master(self):
         data = self.github_trigger('master_post_bsm.json')
@@ -117,7 +115,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] == 'jenkins-jobs_pr'
         assert data['event']['pr_number'] == 134
 
-
     def test_new_forked_pr(self):
         data = self.github_trigger('new_forked_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
@@ -129,7 +126,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['pusher'] == 'ferrants'
         assert data['event']['job_name'] == 'jenkins-jobs_pr'
         assert data['event']['pr_number'] == 135
-
 
     def test_update_forked_pr(self):
         data = self.github_trigger('update_forked_pr.json', github_event_type='pull_request')
@@ -152,8 +148,29 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo'] == 'jenkins-jobs'
         assert data['event']['branch'] == 'dev-test-pr-hook'
         assert data['event']['pusher'] == 'ferrants'
-        assert data['event']['job_name'] == False
+        assert data['event']['job_name'] is False
         assert data['event']['pr_number'] == 134
+
+    # Issue comments
+    def test_add_issue_comment(self):
+        data = self.github_trigger('add_issue_comment.json', github_event_type='issue_comment')
+        assert data['state'] == 'done'
+        assert data['event']['message'] == 'add_label: not_ready'
+        assert data['event']['type'] == 'issue_comment'
+        assert data['event']['pusher'] == 'dx-pbuckley'
+        assert data['event']['repo'] == 'dxng'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['issue_number'] == 60
+
+    def test_forked_issue_comment(self):
+        data = self.github_trigger('forked_issue_comment.json', github_event_type='issue_comment')
+        assert data['state'] == 'done'
+        assert data['event']['message'] == 'add_labels: stale, jira'
+        assert data['event']['type'] == 'issue_comment'
+        assert data['event']['pusher'] == 'dx-pbuckley'
+        assert data['event']['repo'] == 'dxng'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['issue_number'] == 390
 
     # Regression
     def test_delete_push(self):
@@ -165,7 +182,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo'] == 'jenkins-jobs'
         assert data['event']['branch'] == 'dev-remove-bsm-timer'
         assert data['event']['pusher'] == 'ferrants'
-        assert data['event']['job_name'] == False
+        assert data['event']['job_name'] is False
 
     # Search
     def test_search_get(self):

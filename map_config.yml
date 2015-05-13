@@ -37,3 +37,17 @@ pr:
             fork: "{owner}"
             branch: "{branch}"
             pr_number: "{pr_number}"
+
+issue:
+    - match:
+        repo: "dxng"
+        owner: "dataxu"
+        message: "add_label.*|add-label.*|add label.*"
+        actions:
+          - created
+      trigger:
+        job: "github_comment-to-label"
+        params:
+            repo: "{repo}"
+            comment: "{comment}"
+            issue_number: "{issue_number}"
