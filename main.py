@@ -126,10 +126,16 @@ def trigger():
     try:
         if request.method == 'POST':
             event = request.headers.get('X-GitHub-Event')
-            if event == 'push' or event == 'pull_request':
+            if event == 'push' or event == 'pull_request' or event == 'issue_comment':
                 json = request.data
                 if isinstance(json, basestring):
                     json = simplejson.loads(json)
+
+                    pr_number = None
+                    pr_url = None
+
+                    issue_number = None
+                    issue_comment = None
 
                 if event == "push":
                     deleted = bool(json['deleted'])
@@ -146,9 +152,6 @@ def trigger():
                     branch = '_'.join(json['ref'].split('/')[2:])
                     user = json['pusher']['name']
 
-                    pr_number = None
-                    pr_url = None
-
                 elif event == "pull_request":
                     deleted = False
                     created = json['action'] in ['opened']
@@ -163,6 +166,20 @@ def trigger():
                     pr_number = json['pull_request']['number']
                     pr_url = json['pull_request']['html_url']
 
+                elif event == "issue_comment":
+                    deleted = False
+                    created = json['action'] in ['created']
+
+                    message = json['comment']['body']
+                    user = json['comment']['user']['login']
+                    owner = json['repository']['owner']['login']
+                    repo = json['repository']['name']
+                    git_hash = None
+                    branch = None
+
+                    issue_number = json['issue']['number']
+                    issue_comment = message
+
                 event_gen = {
                     'type': event,
                     'repo': repo,
@@ -172,6 +189,7 @@ def trigger():
                     'pusher': user,
                     'action': msg,
                     'message': message,
+                    'issue_number': issue_number,
                     'pr_number': pr_number,
                     'pr_url': pr_url,
                     'time': int(time.time() * 1000),
@@ -208,11 +226,25 @@ def trigger():
                                  ('actions' not in matcher or json['action'] in matcher['actions']) ):
                                 handler = potential_handler
 
+                    elif event == "issue_comment":
+                        for potential_handler in job_map_config['issue']:
+                            matcher = potential_handler['match']
+                            if ( ('branch' not in matcher or re.match(matcher['branch'], branch)) and
+                                 ('repo' not in matcher or re.match(matcher['repo'], repo)) and
+                                 ('message' not in matcher or re.search(matcher['message'], message)) and
+                                 ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
+                                 ('owner' not in matcher or re.match(matcher['owner'], owner)) and
+                                 ('created' not in matcher or matcher['created'] == created) and
+                                 ('actions' not in matcher or json['action'] in matcher['actions']) ):
+                                handler = potential_handler
+
                     if not handler:
                         pass
                     else:
                         if pr_number:
                             actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}', branch).replace('{repo}', repo).replace('{owner}', owner).replace('{pr_number}', str(pr_number)))
+                        elif issue_comment:
+                            actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{comment}', message).replace('{repo}', repo).replace('{owner}', owner).replace('{issue_number}', str(issue_number)))
                         else:
                             actual_handler = simplejson.loads(simplejson.dumps(handler).replace('{branch}', branch).replace('{repo}', repo).replace('{owner}', owner))
                         trigger = actual_handler['trigger']
