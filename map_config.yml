@@ -23,6 +23,12 @@ push:
         params:
             branch: "{branch}"
 
+    - match:
+        owner: dataxu
+        branch: "master-aws"
+      trigger:
+        job: "{repo}_master-aws"
+
 pr:
     - match:
         repo: ".*"
