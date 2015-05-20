@@ -25,9 +25,12 @@ push:
 
     - match:
         owner: dataxu
-        branch: "master-aws"
+        repo: "edge|streaming"
+        branch: "master-aws|rel-aws|rel-ec2-master"
       trigger:
         job: "{repo}_master-aws"
+        params:
+          branch: "{branch}"
 
 pr:
     - match:
