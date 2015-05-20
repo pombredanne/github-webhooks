@@ -172,6 +172,16 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 390
 
+    def test_shipit_comment_automerge(self):
+        data = self.github_trigger('ship_it_comment.json', github_event_type='issue_comment')
+        assert data['state'] == 'done'
+        assert data['event']['message'] == ':shipit:'
+        assert data['event']['type'] == 'issue_comment'
+        assert data['event']['pusher'] == 'babineaum'
+        assert data['event']['repo'] == 'dxng'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['issue_number'] == 390
+    
     # Regression
     def test_delete_push(self):
         data = self.github_trigger('delete_push.json')

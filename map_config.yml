@@ -51,3 +51,14 @@ issue:
             repo: "{repo}"
             comment: "{comment}"
             issue_number: "{issue_number}"
+    - match:
+        repo: "dxng"
+        owner: "dataxu"
+        message: ".*:shipit:.*|.*:sheep:.*|.*:ship:.*|.*:shell:.*|.*:shaved_ice:.*"
+        actions:
+          - created
+      trigger:
+        job: "tools_merge-pr"
+        params:
+            repo: "{repo}"
+            pr_number: "{issue_number}"
