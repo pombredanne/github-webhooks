@@ -51,7 +51,7 @@ issue:
     - match:
         repo: "dxng"
         owner: "dataxu"
-        message: "add_label.*|add-label.*|add label.*"
+        message: "(add|remove|replace)[ _-]label.*"
         actions:
           - created
       trigger:
