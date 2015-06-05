@@ -161,6 +161,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo'] == 'dxng'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 60
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/issues/60'
 
     def test_forked_issue_comment(self):
         data = self.github_trigger('forked_issue_comment.json', github_event_type='issue_comment')
@@ -171,6 +172,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo'] == 'dxng'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 390
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
 
     def test_shipit_comment_automerge(self):
         data = self.github_trigger('ship_it_comment.json', github_event_type='issue_comment')
@@ -181,7 +183,8 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['repo'] == 'dxng'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 390
-    
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
+
     # Regression
     def test_delete_push(self):
         data = self.github_trigger('delete_push.json')
