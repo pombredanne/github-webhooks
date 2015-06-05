@@ -136,6 +136,7 @@ def trigger():
 
                     issue_number = None
                     issue_comment = None
+                    issue_url = None
 
                 if event == "push":
                     deleted = bool(json['deleted'])
@@ -179,6 +180,7 @@ def trigger():
 
                     issue_number = json['issue']['number']
                     issue_comment = message
+                    issue_url = json['issue']['html_url']
 
                 event_gen = {
                     'type': event,
@@ -192,6 +194,7 @@ def trigger():
                     'issue_number': issue_number,
                     'pr_number': pr_number,
                     'pr_url': pr_url,
+                    'issue_url': issue_url,
                     'time': int(time.time() * 1000),
                     'job_name': False
                 }

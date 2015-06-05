@@ -47,14 +47,18 @@
                             <td>{{ event.time | fromNow }}</td>
                             <td><a target='_blank' href='http://www.github.com/{{ event.pusher }}'>{{ event.pusher }}</a></td>
                             <td ng-switch="event.type">
-                              <a ng-switch-when="push" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}'>{{ event.repo }}</a>
                               <a ng-switch-when="pull_request" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}'>{{ event.repo_owner }}/{{ event.repo }}</a>
+                              <a ng-switch-default target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}'>{{ event.repo }}</a>
                             </td>
                             <td ng-switch="event.type">
                               <a ng-switch-when="push" target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/tree/{{ event.branch }}'>{{ event.branch }}</a>
                               <a ng-switch-when="pull_request" target='_blank' href='{{ event.pr_url }}'>#{{ event.pr_number }} {{ event.branch }}</a>
+                              <a ng-switch-when="issue_comment" target='_blank' href='{{ event.issue_url }}'>#{{ event.issue_number }}</a>
                             </td>
-                            <td><a target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/commit/{{ event.hash }}'>{{ event.hash | short_hash }}</a></td>
+                            <td ng-switch="event.type">
+                              <span ng-switch-when="issue_comment">{{ event.message }}</span>
+                              <a ng-switch-default target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/commit/{{ event.hash }}'>{{ event.hash | short_hash }}</a>
+                            </td>
                             <td ng-switch="event.job_name">
                               <span ng-switch-when="false">{{ event.action }}</span>
                               <a target='_blank' ng-switch-default href='{{ app_data.jenkins.host }}/job/{{ event.job_name }}'>{{ event.action }}</a>
