@@ -185,6 +185,19 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['issue_number'] == 390
         assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
 
+    # Pushes
+
+    def test_dev_apu_push(self):
+        data = self.github_trigger('dev-apu-push.json')
+        assert data['state'] == 'done'
+        assert data['msg'] == 'nothing done'
+        assert data['event']['type'] == 'push'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['repo'] == 'streaming'
+        assert data['event']['branch'] == 'dev-auto_pom_update'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] is False
+
     # Regression
     def test_delete_push(self):
         data = self.github_trigger('delete_push.json')
