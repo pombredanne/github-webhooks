@@ -213,6 +213,7 @@ def trigger():
                                  ('repo' not in matcher or re.match(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
+                                 ('no_branch' not in matcher or not re.search(matcher['no_branch'], branch)) and
                                  ('owner' not in matcher or re.match(matcher['owner'], owner)) and
                                  ('created' not in matcher or matcher['created'] == created) ):
                                 handler = potential_handler
