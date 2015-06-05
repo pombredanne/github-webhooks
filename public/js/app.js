@@ -8,7 +8,11 @@ webhooks.filter('fromNow', function() {
 
 webhooks.filter('short_hash', function(){
   return function(hash){
-    return hash.substring(0, 8);
+    if (hash) {
+      return hash.substring(0, 8);
+    } else {
+      return 'No Hash';
+    }
   }
 });
 
