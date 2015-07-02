@@ -1,0 +1,7 @@
+push:
+    - match:
+        owner: "dataxu"
+        branch: "master"
+        no_message: '^\[auto\].*$'
+      trigger:
+        job: "{repo}_master"

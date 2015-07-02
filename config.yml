@@ -8,3 +8,4 @@ MONGO_DB_NAME: 'dxmanager'
 PORT: 5001
 DEBUG: True
 TEST: False
+MAP_CONFIG: map_configs/dx_map_config.yml

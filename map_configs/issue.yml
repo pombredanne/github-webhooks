@@ -1,0 +1,24 @@
+issue:
+    - match:
+        repo: "dxng"
+        owner: "dataxu"
+        message: "(add|remove|replace)[ _-]label.*"
+        actions:
+          - created
+      trigger:
+        job: "github_comment-to-label"
+        params:
+            repo: "{repo}"
+            comment: "{comment}"
+            issue_number: "{issue_number}"
+    - match:
+        repo: "dxng"
+        owner: "dataxu"
+        message: ".*:shipit:.*|.*:sheep:.*|.*:ship:.*|.*:shell:.*|.*:shaved_ice:.*"
+        actions:
+          - created
+      trigger:
+        job: "tools_merge-pr"
+        params:
+            repo: "{repo}"
+            pr_number: "{issue_number}"

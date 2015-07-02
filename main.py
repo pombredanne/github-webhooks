@@ -61,12 +61,16 @@ job_map_config = {}
 
 
 @app.route('/reload_config')
-def load_job_map_config():
+def load_map_config():
+    _load_map_config()
+    return (jsonify(state='done', msg='map_config reloaded', config=job_map_config), 200)
+
+def _load_map_config():
     global job_map_config
-    stream = open("map_config.yml", 'r')
+    stream = open(app.config['MAP_CONFIG'], 'r')
     job_map_config = yaml.load(stream)
 
-load_job_map_config()
+_load_map_config()
 
 
 @app.route('/')
