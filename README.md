@@ -54,7 +54,7 @@ Then run the tests:
 
         python ./webhooks_test.py
 
-Some notes on making changes
+Some notes on adding functionality
 --------------------
 
 If you are adding a new type of event to be acted upon, the first step
@@ -93,6 +93,10 @@ field exists in `map_config.yml` and matches the condition (regex,
 string comparison, etc) then the matcher "matches". Matchers iterate
 over `map_config.yml` and the *last one* that matches is used to trigger
 the jenkins job.
+
+The `map_config.yml` contains blocks of code (yml) to define what
+types of events you want to match. They're grouped by event type,
+e.g. `push`, `pr`, or `issue`.
 
 Finally, when adding a new event type, you will likely need a
 condition to trigger a jenkins job based on the handler (the result of
