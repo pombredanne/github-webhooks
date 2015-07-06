@@ -1,9 +1,0 @@
-push:
-    - match:
-        owner: dataxu
-        branch: "rel-.*"
-        created: true
-      trigger:
-        job: "{repo}_rel"
-        params:
-            branch: "{branch}"

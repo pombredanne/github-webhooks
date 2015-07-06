@@ -13,6 +13,9 @@ class WebhooksTestCase(unittest.TestCase):
         self.app = main.app.test_client()
         main.clear_db()
 
+    def setUp(self):
+        self.set_map_config('dx_map_config.yml')
+
     def tearDown(self):
         main.clear_db()
         pass
@@ -63,7 +66,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data == {'msg': 'nothing done', 'state': 'done'}
 
     def test_trigger_dev(self):
-        self.set_map_config('dev-feature.yml')
         data = self.github_trigger('dev_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_dev-feature job'
@@ -81,7 +83,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] == 'github-webhooks_dev-feature'
 
     def test_trigger_rel_new(self):
-        self.set_map_config('rel.yml')
         data = self.github_trigger('rel_post_bsm_new.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_rel job'
@@ -91,7 +92,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] is not False
 
     def test_trigger_rel_notnew(self):
-        self.set_map_config('rel.yml')
         data = self.github_trigger('rel_post_bsm_notnew.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'nothing done'
@@ -101,7 +101,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] is False
 
     def test_trigger_master(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -112,7 +111,6 @@ class WebhooksTestCase(unittest.TestCase):
 
     # PR
     def test_new_pr(self):
-        self.set_map_config('pr.yml')
         data = self.github_trigger('new_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-pr_pr job'
@@ -125,7 +123,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['pr_number'] == 134
 
     def test_new_forked_pr(self):
-        self.set_map_config('pr.yml')
         data = self.github_trigger('new_forked_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-pr_pr job'
@@ -138,7 +135,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['pr_number'] == 135
 
     def test_update_forked_pr(self):
-        self.set_map_config('pr.yml')
         data = self.github_trigger('update_forked_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-pr_pr job'
@@ -151,7 +147,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['pr_number'] == 135
 
     def test_close_pr(self):
-        self.set_map_config('pr.yml')
         data = self.github_trigger('close_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
         assert data['msg'] == 'nothing done'
@@ -165,7 +160,6 @@ class WebhooksTestCase(unittest.TestCase):
 
     # Issue comments
     def test_add_issue_comment(self):
-        self.set_map_config('issue.yml')
         data = self.github_trigger('add_issue_comment.json', github_event_type='issue_comment')
         assert data['state'] == 'done'
         assert data['event']['message'] == 'add_label: not_ready'
@@ -177,7 +171,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/issues/60'
 
     def test_forked_issue_comment(self):
-        self.set_map_config('issue.yml')
         data = self.github_trigger('forked_issue_comment.json', github_event_type='issue_comment')
         assert data['state'] == 'done'
         assert data['event']['message'] == 'add_labels: stale, jira'
@@ -189,7 +182,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/pull/390'
 
     def test_shipit_comment_automerge(self):
-        self.set_map_config('issue.yml')
         data = self.github_trigger('ship_it_comment.json', github_event_type='issue_comment')
         assert data['state'] == 'done'
         assert data['event']['message'] == ':shipit:'
@@ -203,7 +195,6 @@ class WebhooksTestCase(unittest.TestCase):
     # Pushes
 
     def test_dev_apu_push(self):
-        self.set_map_config('dev-feature.yml')
         data = self.github_trigger('dev-apu-push.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'nothing done'
@@ -216,7 +207,6 @@ class WebhooksTestCase(unittest.TestCase):
 
     # Regression
     def test_delete_push(self):
-        self.set_map_config('dev-feature.yml')
         data = self.github_trigger('delete_push.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'delete branch, nothing to do'
@@ -229,7 +219,6 @@ class WebhooksTestCase(unittest.TestCase):
 
     # Search
     def test_search_get(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -238,7 +227,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert len(search_data['results']) == 0
 
     def test_search_repo(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -247,7 +235,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['repo'] == 'github-webhooks'
 
     def test_search_branch(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -256,7 +243,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['branch'] == 'master'
 
     def test_search_pusher(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -265,7 +251,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['pusher'] == 'dxbuildmaster'
 
     def test_search_hash(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -274,7 +259,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
 
     def test_search_multi(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -283,7 +267,6 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
 
     def test_search_empty(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
@@ -292,18 +275,12 @@ class WebhooksTestCase(unittest.TestCase):
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
 
     def test_search_blank(self):
-        self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
         assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {'hash': ''})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
-
-    def test_dx_config(self):
-        self.set_map_config('dx_map_config.yml')
-        data = self.github_trigger('master_post_bsm.json')
-        assert data['state'] == 'done'
 
 if __name__ == '__main__':
     unittest.main()
