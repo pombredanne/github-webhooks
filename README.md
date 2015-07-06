@@ -140,3 +140,5 @@ with how it is defined in a pull_request event:
 If these aren't pulling in valid values from your
 `test_resources/new_event_payload.json` you will tend to see errors
 like the above.
+
+This code was originally developed at [DataXu](https://www.dataxu.com/) and released as open source under the New BSD License.
