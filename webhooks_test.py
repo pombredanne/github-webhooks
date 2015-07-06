@@ -66,7 +66,7 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('dev-feature.yml')
         data = self.github_trigger('dev_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_dev-feature job'
+        assert data['msg'] == 'triggered github-webhooks_dev-feature job'
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
@@ -78,13 +78,13 @@ class WebhooksTestCase(unittest.TestCase):
         assert 'pusher' in data['event']
         assert 'job_name' in data['event']
         assert 'action' in data['event']
-        assert data['event']['job_name'] == 'business-service-monitor_dev-feature'
+        assert data['event']['job_name'] == 'github-webhooks_dev-feature'
 
     def test_trigger_rel_new(self):
         self.set_map_config('rel.yml')
         data = self.github_trigger('rel_post_bsm_new.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_rel job'
+        assert data['msg'] == 'triggered github-webhooks_rel job'
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
@@ -104,50 +104,50 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         event_data = self.get_data('/data')['events']
         assert len(event_data) == 1
         assert data['event'] == event_data[0]
-        assert data['event']['job_name'] == 'business-service-monitor_master'
+        assert data['event']['job_name'] == 'github-webhooks_master'
 
     # PR
     def test_new_pr(self):
         self.set_map_config('pr.yml')
         data = self.github_trigger('new_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered jenkins-jobs_pr job'
+        assert data['msg'] == 'triggered github-pr_pr job'
         assert data['event']['type'] == 'pull_request'
         assert data['event']['repo_owner'] == 'dataxu'
-        assert data['event']['repo'] == 'jenkins-jobs'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-test-pr-hook'
-        assert data['event']['pusher'] == 'ferrants'
-        assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] == 'github-pr_pr'
         assert data['event']['pr_number'] == 134
 
     def test_new_forked_pr(self):
         self.set_map_config('pr.yml')
         data = self.github_trigger('new_forked_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered jenkins-jobs_pr job'
+        assert data['msg'] == 'triggered github-pr_pr job'
         assert data['event']['type'] == 'pull_request'
-        assert data['event']['repo_owner'] == 'ferrants'
-        assert data['event']['repo'] == 'jenkins-jobs'
+        assert data['event']['repo_owner'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-test-pr-hook'
-        assert data['event']['pusher'] == 'ferrants'
-        assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] == 'github-pr_pr'
         assert data['event']['pr_number'] == 135
 
     def test_update_forked_pr(self):
         self.set_map_config('pr.yml')
         data = self.github_trigger('update_forked_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered jenkins-jobs_pr job'
+        assert data['msg'] == 'triggered github-pr_pr job'
         assert data['event']['type'] == 'pull_request'
-        assert data['event']['repo_owner'] == 'ferrants'
-        assert data['event']['repo'] == 'jenkins-jobs'
+        assert data['event']['repo_owner'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-test-pr-hook'
-        assert data['event']['pusher'] == 'ferrants'
-        assert data['event']['job_name'] == 'jenkins-jobs_pr'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] == 'github-pr_pr'
         assert data['event']['pr_number'] == 135
 
     def test_close_pr(self):
@@ -157,9 +157,9 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['msg'] == 'nothing done'
         assert data['event']['type'] == 'pull_request'
         assert data['event']['repo_owner'] == 'dataxu'
-        assert data['event']['repo'] == 'jenkins-jobs'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-test-pr-hook'
-        assert data['event']['pusher'] == 'ferrants'
+        assert data['event']['pusher'] == 'dxbuildmaster'
         assert data['event']['job_name'] is False
         assert data['event']['pr_number'] == 134
 
@@ -170,11 +170,11 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['state'] == 'done'
         assert data['event']['message'] == 'add_label: not_ready'
         assert data['event']['type'] == 'issue_comment'
-        assert data['event']['pusher'] == 'dx-pbuckley'
-        assert data['event']['repo'] == 'dxng'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 60
-        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/issues/60'
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/issues/60'
 
     def test_forked_issue_comment(self):
         self.set_map_config('issue.yml')
@@ -182,11 +182,11 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['state'] == 'done'
         assert data['event']['message'] == 'add_labels: stale, jira'
         assert data['event']['type'] == 'issue_comment'
-        assert data['event']['pusher'] == 'dx-pbuckley'
-        assert data['event']['repo'] == 'dxng'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 390
-        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/pull/390'
 
     def test_shipit_comment_automerge(self):
         self.set_map_config('issue.yml')
@@ -194,11 +194,11 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['state'] == 'done'
         assert data['event']['message'] == ':shipit:'
         assert data['event']['type'] == 'issue_comment'
-        assert data['event']['pusher'] == 'babineaum'
-        assert data['event']['repo'] == 'dxng'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['repo_owner'] == 'dataxu'
         assert data['event']['issue_number'] == 390
-        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/pull/390'
 
     # Pushes
 
@@ -209,7 +209,7 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['msg'] == 'nothing done'
         assert data['event']['type'] == 'push'
         assert data['event']['repo_owner'] == 'dataxu'
-        assert data['event']['repo'] == 'streaming'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-auto_pom_update'
         assert data['event']['pusher'] == 'dxbuildmaster'
         assert data['event']['job_name'] is False
@@ -222,9 +222,9 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['msg'] == 'delete branch, nothing to do'
         assert data['event']['type'] == 'push'
         assert data['event']['repo_owner'] == 'dataxu'
-        assert data['event']['repo'] == 'jenkins-jobs'
+        assert data['event']['repo'] == 'github-pr'
         assert data['event']['branch'] == 'dev-remove-bsm-timer'
-        assert data['event']['pusher'] == 'ferrants'
+        assert data['event']['pusher'] == 'dxbuildmaster'
         assert data['event']['job_name'] is False
 
     # Search
@@ -232,7 +232,7 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.get_data('/search')
         assert search_data['state'] == 'done'
         assert len(search_data['results']) == 0
@@ -241,16 +241,16 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
-        search_data = self.post_data('/search', {'repo': 'business-service-monitor'})
+        assert data['msg'] == 'triggered github-webhooks_master job'
+        search_data = self.post_data('/search', {'repo': 'github-webhooks'})
         assert len(search_data['results']) == 1
-        assert search_data['results'][0]['repo'] == 'business-service-monitor'
+        assert search_data['results'][0]['repo'] == 'github-webhooks'
 
     def test_search_branch(self):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {'branch': 'master'})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['branch'] == 'master'
@@ -259,16 +259,16 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
-        search_data = self.post_data('/search', {'pusher': 'kaneda'})
+        assert data['msg'] == 'triggered github-webhooks_master job'
+        search_data = self.post_data('/search', {'pusher': 'dxbuildmaster'})
         assert len(search_data['results']) == 1
-        assert search_data['results'][0]['pusher'] == 'kaneda'
+        assert search_data['results'][0]['pusher'] == 'dxbuildmaster'
 
     def test_search_hash(self):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {'hash': 'd4e5330448fd8e0a42f44df2187318149b738672'})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
@@ -277,7 +277,7 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {'branch': 'master', 'hash': 'd4e5330448fd8e0a42f44df2187318149b738672'})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
@@ -286,7 +286,7 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
@@ -295,10 +295,15 @@ class WebhooksTestCase(unittest.TestCase):
         self.set_map_config('master.yml')
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
-        assert data['msg'] == 'triggered business-service-monitor_master job'
+        assert data['msg'] == 'triggered github-webhooks_master job'
         search_data = self.post_data('/search', {'hash': ''})
         assert len(search_data['results']) == 1
         assert search_data['results'][0]['hash'] == 'd4e5330448fd8e0a42f44df2187318149b738672'
+
+    def test_dx_config(self):
+        self.set_map_config('dx_map_config.yml')
+        data = self.github_trigger('master_post_bsm.json')
+        assert data['state'] == 'done'
 
 if __name__ == '__main__':
     unittest.main()

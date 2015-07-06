@@ -5,23 +5,23 @@
   "created": false,
   "deleted": false,
   "forced": false,
-  "compare": "https://github.com/dataxu/business-service-monitor/compare/c5cd4aa8a602...04b046c83fbb",
+  "compare": "https://github.com/dataxu/github-webhooks/compare/c5cd4aa8a602...04b046c83fbb",
   "commits": [
     {
       "id": "04b046c83fbb4077e5b9900c0903611d6de43be4",
       "distinct": true,
       "message": "[JB] Fix discrepencies between rel-4.18 and master\n- Was missing Matt's updates, wtfm8",
       "timestamp": "2014-07-22T16:48:51-04:00",
-      "url": "https://github.com/dataxu/business-service-monitor/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
+      "url": "https://github.com/dataxu/github-webhooks/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
       "author": {
-        "name": "Josh Begleiter",
-        "email": "jbegleiter@dataxu.com",
-        "username": "kaneda"
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
       },
       "committer": {
-        "name": "Josh Begleiter",
-        "email": "jbegleiter@dataxu.com",
-        "username": "kaneda"
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
       },
       "added": [
 
@@ -42,16 +42,16 @@
     "distinct": true,
     "message": "[JB] Fix discrepencies between rel-4.18 and master\n- Was missing Matt's updates, wtfm8",
     "timestamp": "2014-07-22T16:48:51-04:00",
-    "url": "https://github.com/dataxu/business-service-monitor/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
+    "url": "https://github.com/dataxu/github-webhooks/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
     "author": {
-      "name": "Josh Begleiter",
-      "email": "jbegleiter@dataxu.com",
-      "username": "kaneda"
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
     },
     "committer": {
-      "name": "Josh Begleiter",
-      "email": "jbegleiter@dataxu.com",
-      "username": "kaneda"
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
     },
     "added": [
 
@@ -68,8 +68,8 @@
   },
   "repository": {
     "id": 15620337,
-    "name": "business-service-monitor",
-    "url": "https://github.com/dataxu/business-service-monitor",
+    "name": "github-webhooks",
+    "url": "https://github.com/dataxu/github-webhooks",
     "watchers": 1,
     "stargazers": 1,
     "forks": 1,
@@ -92,7 +92,7 @@
     "organization": "dataxu"
   },
   "pusher": {
-    "name": "kaneda",
-    "email": "kanedasan@gmail.com"
+    "name": "dxbuildmaster",
+    "email": "buildmaster@dataxu.com"
   }
 }

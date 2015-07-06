@@ -1,6 +1,6 @@
 issue:
     - match:
-        repo: "dxng"
+        repo: "github-pr"
         owner: "dataxu"
         message: "(add|remove|replace)[ _-]label.*"
         actions:
@@ -12,7 +12,7 @@ issue:
             comment: "{comment}"
             issue_number: "{issue_number}"
     - match:
-        repo: "dxng"
+        repo: "github-pr"
         owner: "dataxu"
         message: ".*:shipit:.*|.*:sheep:.*|.*:ship:.*|.*:shell:.*|.*:shaved_ice:.*"
         actions:

@@ -5,23 +5,23 @@
   "created": false,
   "deleted": false,
   "forced": true,
-  "compare": "https://github.com/dataxu/business-service-monitor/compare/d9e4f44a916f...d0291e59dd4f",
+  "compare": "https://github.com/dataxu/github-webhooks/compare/d9e4f44a916f...d0291e59dd4f",
   "commits": [
     {
       "id": "d0291e59dd4f256e974cda76eb2e1038ac2000c9",
       "distinct": true,
       "message": "[dev-SE-861] Set threshold on exchange conn mon\n- Threshold set to 100 requests/s before measuring wins\n- Updated rates in spec and added basic failure scenario\n- Disabled the lowest requested exchanges in APAC",
       "timestamp": "2014-07-21T17:13:41-04:00",
-      "url": "https://github.com/dataxu/business-service-monitor/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+      "url": "https://github.com/dataxu/github-webhooks/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
       "author": {
-        "name": "Josh Begleiter",
-        "email": "jbegleiter@dataxu.com",
-        "username": "kaneda"
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
       },
       "committer": {
-        "name": "Josh Begleiter",
-        "email": "jbegleiter@dataxu.com",
-        "username": "kaneda"
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
       },
       "added": [
 
@@ -41,16 +41,16 @@
     "distinct": true,
     "message": "[dev-SE-861] Set threshold on exchange conn mon\n- Threshold set to 100 requests/s before measuring wins\n- Updated rates in spec and added basic failure scenario\n- Disabled the lowest requested exchanges in APAC",
     "timestamp": "2014-07-21T17:13:41-04:00",
-    "url": "https://github.com/dataxu/business-service-monitor/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
+    "url": "https://github.com/dataxu/github-webhooks/commit/d0291e59dd4f256e974cda76eb2e1038ac2000c9",
     "author": {
-      "name": "Josh Begleiter",
-      "email": "jbegleiter@dataxu.com",
-      "username": "kaneda"
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
     },
     "committer": {
-      "name": "Josh Begleiter",
-      "email": "jbegleiter@dataxu.com",
-      "username": "kaneda"
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
     },
     "added": [
 
@@ -66,8 +66,8 @@
   },
   "repository": {
     "id": 15620337,
-    "name": "business-service-monitor",
-    "url": "https://github.com/dataxu/business-service-monitor",
+    "name": "github-webhooks",
+    "url": "https://github.com/dataxu/github-webhooks",
     "watchers": 1,
     "stargazers": 1,
     "forks": 1,
@@ -89,7 +89,7 @@
     "organization": "dataxu"
   },
   "pusher": {
-    "name": "kaneda",
-    "email": "kanedasan@gmail.com"
+    "name": "dxbuildmaster",
+    "email": "buildmaster@dataxu.com"
   }
 }
