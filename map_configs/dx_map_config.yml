@@ -60,9 +60,6 @@ push:
 
 pr:
     - match:
-        repo: ".*"
-        owner: ".*"
-        branch: ".*"
         actions:
           - opened
           - synchronize
@@ -89,7 +86,7 @@ issue:
     - match:
         repo: "dxng"
         owner: "dataxu"
-        message: ".*:shipit:.*|.*:sheep:.*|.*:ship:.*|.*:shell:.*|.*:shaved_ice:.*"
+        message: ".*:(shipit|sheep|ship|shell|shaved_ice):.*"
         actions:
           - created
       trigger:
