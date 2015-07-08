@@ -1,6 +1,8 @@
 # Github Webhooks
 Server that handles webhook requests from GitHub and triggers jobs on Jenkins. Requires a running instance of [MongoDB](https://github.com/mongodb/mongo). The interface shows recent events and provides search functionality.
 
+![Webhooks Dashboard](docs/webhooks_dashboard.png)
+
 ## Running
 
 In a separate shell startup your mongo database:
