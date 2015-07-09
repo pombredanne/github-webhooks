@@ -90,6 +90,7 @@ def load_map_config():
     _load_map_config()
     return (jsonify(state='done', msg='map_config reloaded', config=job_map_config), 200)
 
+
 def _load_map_config():
     global job_map_config
     stream = open(app.config['MAP_CONFIG'], 'r')
@@ -152,6 +153,7 @@ def trigger():
     return_data = {}
     state = 'done'
     msg = "nothing done"
+
     try:
         if request.method == 'POST':
             event = request.headers.get('X-GitHub-Event')
@@ -166,6 +168,7 @@ def trigger():
                     issue_number = None
                     issue_comment = None
                     issue_url = None
+                    label = None
 
                 if event == "push":
                     deleted = bool(json['deleted'])
@@ -192,7 +195,9 @@ def trigger():
                     branch = json['pull_request']['head']['ref']
                     user = json['pull_request']['user']['login']
                     message = json['action']
-
+                    if 'label' in json:
+                        if 'name' in json['label']:
+                            label = json['label']['name']
                     pr_number = json['pull_request']['number']
                     pr_url = json['pull_request']['html_url']
 
@@ -225,7 +230,8 @@ def trigger():
                     'pr_url': pr_url,
                     'issue_url': issue_url,
                     'time': int(time.time() * 1000),
-                    'job_name': False
+                    'job_name': False,
+                    'label': label
                 }
 
                 events_coll.insert(event_gen)
@@ -254,6 +260,7 @@ def trigger():
                                  ('repo' not in matcher or re.match(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
+                                 ('label' not in matcher or re.search(matcher['label'], label) and label) and
                                  ('owner' not in matcher or re.match(matcher['owner'], owner)) and
                                  ('created' not in matcher or matcher['created'] == created) and
                                  ('actions' not in matcher or json['action'] in matcher['actions']) ):
@@ -329,7 +336,7 @@ def trigger():
 
         return (jsonify(state=state, msg=msg, **return_data), 200)
     except Exception as e:
-        print e
+        print "catch_all error: {0}".format(e)
         error_coll.insert({'time': int(time.time() * 1000), "where": 'catch_all', "msg": "{0}".format(e)})
         return (jsonify(state='error', msg=str(e)), 500)
 
