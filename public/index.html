@@ -82,7 +82,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                               <a ng-switch-when="issue_comment" target='_blank' href='{{ event.issue_url }}'>#{{ event.issue_number }}</a>
                             </td>
                             <td ng-switch="event.type">
-                              <span ng-switch-when="issue_comment">{{ event.message }}</span>
+                              <span ng-switch-when="issue_comment">{{ event.message | short_issue_comment }}</span>
                               <a ng-switch-default target='_blank' href='https://github.com/{{ event.repo_owner }}/{{ event.repo }}/commit/{{ event.hash }}'>{{ event.hash | short_hash }}</a>
                             </td>
                             <td ng-switch="event.job_name">

@@ -41,6 +41,16 @@ webhooks.filter('short_hash', function(){
   }
 });
 
+webhooks.filter('short_issue_comment', function(){
+  return function(issue_comment){
+    if (issue_comment) {
+	return issue_comment.substring(0, 75);
+    } else {
+	return 'No Issue Comment';
+    }
+  }
+});
+
 webhooks.controller('WebhooksControl', function($scope, $http){
   $scope.app_data = {};
   $scope.active_requests = 0;
