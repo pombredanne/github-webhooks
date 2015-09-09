@@ -304,8 +304,8 @@
     "changed_files": 1
   },
   "label": {
-    "url": "https://api.github.com/repos/dataxu/cms/labels/int_ready",
-    "name": "int_ready",
+    "url": "https://api.github.com/repos/dataxu/cms/labels/int-ready",
+    "name": "int-ready",
     "color": "84b6eb"
   },
   "repository": {
