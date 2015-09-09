@@ -183,6 +183,18 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] is False
         assert data['event']['pr_number'] == 134
 
+    def test_label_pr(self):
+        data = self.github_trigger('label_pr.json', github_event_type='pull_request')
+        assert data['state'] == 'done'
+        assert data['msg'] == 'triggered tools_create-int-branch job'
+        assert data['event']['type'] == 'pull_request'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['repo'] == 'cms'
+        assert data['event']['branch'] == 'fakersbranch'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] == 'tools_create-int-branch'
+        assert data['event']['pr_number'] == 25
+
     # Issue comments
     def test_add_issue_comment(self):
         data = self.github_trigger('add_issue_comment.json', github_event_type='issue_comment')
