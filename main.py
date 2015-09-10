@@ -260,7 +260,7 @@ def trigger():
                                  ('repo' not in matcher or re.match(matcher['repo'], repo)) and
                                  ('message' not in matcher or re.search(matcher['message'], message)) and
                                  ('no_message' not in matcher or not re.search(matcher['no_message'], message)) and
-                                 ('label' not in matcher or re.search(matcher['label'], label) and label) and
+                                 ('label' not in matcher or label and re.search(matcher['label'], label)) and
                                  ('owner' not in matcher or re.match(matcher['owner'], owner)) and
                                  ('created' not in matcher or matcher['created'] == created) and
                                  ('actions' not in matcher or json['action'] in matcher['actions']) ):
