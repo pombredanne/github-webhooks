@@ -171,6 +171,18 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['job_name'] == 'github-pr_pr'
         assert data['event']['pr_number'] == 135
 
+    def test_update_cms_pr(self):
+        data = self.github_trigger('sync_cms_pr.json', github_event_type='pull_request')
+        assert data['state'] == 'done'
+        assert data['msg'] == 'triggered cms_pr job'
+        assert data['event']['type'] == 'pull_request'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['repo'] == 'cms'
+        assert data['event']['branch'] == 'dev-test-branch'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['job_name'] == 'cms_pr'
+        assert data['event']['pr_number'] == 584
+
     def test_close_pr(self):
         data = self.github_trigger('close_pr.json', github_event_type='pull_request')
         assert data['state'] == 'done'
