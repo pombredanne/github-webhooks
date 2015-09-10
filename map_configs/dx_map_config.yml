@@ -71,7 +71,7 @@ pr:
             pr_number: "{pr_number}"
     - match:
         repo: "cms"
-        label: "int_ready"
+        label: "int-ready"
         actions:
           - labeled
       trigger:
