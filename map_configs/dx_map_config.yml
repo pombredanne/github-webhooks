@@ -95,7 +95,7 @@ issue:
             comment: "{comment}"
             issue_number: "{issue_number}"
     - match:
-        repo: "dxng"
+        repo: "(dxng|user-interface)"
         owner: "dataxu"
         message: ".*:(shipit|sheep|ship|shell|shaved_ice):.*"
         actions:

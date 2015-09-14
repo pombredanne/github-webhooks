@@ -241,6 +241,30 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event']['issue_number'] == 390
         assert data['event']['issue_url'] == 'https://github.com/dataxu/github-pr/pull/390'
 
+    def test_shipit_comment_automerge_dxng(self):
+        data = self.github_trigger('ship_it_comment_dxng.json', github_event_type='issue_comment')
+        assert data['state'] == 'done'
+        assert data['event']['message'] == ':shipit:'
+        assert data['event']['type'] == 'issue_comment'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'dxng'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['issue_number'] == 390
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/dxng/pull/390'
+        assert data['event']['job_name'] == 'tools_merge-pr'
+
+    def test_shipit_comment_automerge_ui(self):
+        data = self.github_trigger('ship_it_comment_ui.json', github_event_type='issue_comment')
+        assert data['state'] == 'done'
+        assert data['event']['message'] == ':shipit:'
+        assert data['event']['type'] == 'issue_comment'
+        assert data['event']['pusher'] == 'dxbuildmaster'
+        assert data['event']['repo'] == 'user-interface'
+        assert data['event']['repo_owner'] == 'dataxu'
+        assert data['event']['issue_number'] == 390
+        assert data['event']['issue_url'] == 'https://github.com/dataxu/user-interface/pull/390'
+        assert data['event']['job_name'] == 'tools_merge-pr'
+
     # Pushes
 
     def test_dev_apu_push(self):
