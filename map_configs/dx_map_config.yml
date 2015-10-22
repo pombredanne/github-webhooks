@@ -83,7 +83,7 @@ pr:
 
 issue:
     - match:
-        repo: "dxng"
+        repo: "(dxng|user-interface)"
         owner: "dataxu"
         message: "(add|remove|replace)[ _-]label.*"
         actions:
