@@ -97,7 +97,7 @@ issue:
     - match:
         repo: "(dxng|user-interface)"
         owner: "dataxu"
-        message: ".*:(shipit|sheep|ship|shell|shaved_ice):.*"
+        message: ".*:shipit:.*"
         actions:
           - created
       trigger:
