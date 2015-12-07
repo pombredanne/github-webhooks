@@ -53,6 +53,7 @@ push:
         owner: dataxu
         repo: "edge|streaming"
         branch: "master-aws|rel-aws|rel-ec2-master"
+        no_message: '^\[auto\].*$'
       trigger:
         job: "{repo}_master-aws"
         params:
