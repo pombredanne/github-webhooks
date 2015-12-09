@@ -125,6 +125,15 @@ class WebhooksTestCase(unittest.TestCase):
         assert data['event'] == event_data[0]
         assert data['event']['job_name'] is False
 
+    def test_trigger_rel_ui_notnew(self):
+        data = self.github_trigger('rel_post_ui_notnew.json')
+        assert data['state'] == 'done'
+        assert data['msg'] == 'triggered user-interface_rel job'
+        event_data = self.get_data('/data')['events']
+        assert len(event_data) == 1
+        assert data['event'] == event_data[0]
+        assert data['event']['job_name'] is not False
+
     def test_trigger_master(self):
         data = self.github_trigger('master_post_bsm.json')
         assert data['state'] == 'done'
