@@ -1,0 +1,98 @@
+{
+  "ref": "refs/heads/rel-4.18",
+  "after": "04b046c83fbb4077e5b9900c0903611d6de43be4",
+  "before": "c5cd4aa8a602bd47d4ecc130f06b120e57095d70",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "compare": "https://github.com/dataxu/user-interface/compare/c5cd4aa8a602...04b046c83fbb",
+  "commits": [
+    {
+      "id": "04b046c83fbb4077e5b9900c0903611d6de43be4",
+      "distinct": true,
+      "message": "[JB] Fix discrepencies between rel-4.18 and master\n- Was missing Matt's updates, wtfm8",
+      "timestamp": "2014-07-22T16:48:51-04:00",
+      "url": "https://github.com/dataxu/user-interface/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
+      "author": {
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
+      },
+      "committer": {
+        "name": "DataXu Buildmaster",
+        "email": "buildmaster@dataxu.com",
+        "username": "dxbuildmaster"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "build/build.sh",
+        "src/main/user-interface/Gemfile",
+        "src/main/user-interface/Gemfile.lock",
+        "src/main/user-interface/features/support/paths.rb"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "04b046c83fbb4077e5b9900c0903611d6de43be4",
+    "distinct": true,
+    "message": "[JB] Fix discrepencies between rel-4.18 and master\n- Was missing Matt's updates, wtfm8",
+    "timestamp": "2014-07-22T16:48:51-04:00",
+    "url": "https://github.com/dataxu/user-interface/commit/04b046c83fbb4077e5b9900c0903611d6de43be4",
+    "author": {
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
+    },
+    "committer": {
+      "name": "DataXu Buildmaster",
+      "email": "buildmaster@dataxu.com",
+      "username": "dxbuildmaster"
+    },
+    "added": [
+
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+      "build/build.sh",
+      "src/main/user-interface/Gemfile",
+      "src/main/user-interface/Gemfile.lock",
+      "src/main/user-interface/features/support/paths.rb"
+    ]
+  },
+  "repository": {
+    "id": 15620337,
+    "name": "user-interface",
+    "url": "https://github.com/dataxu/user-interface",
+    "watchers": 1,
+    "stargazers": 1,
+    "forks": 1,
+    "fork": false,
+    "size": 23780,
+    "owner": {
+      "name": "dataxu",
+      "email": null
+    },
+    "private": true,
+    "open_issues": 1,
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "language": "Ruby",
+    "created_at": 1388785440,
+    "pushed_at": 1406145892,
+    "master_branch": "master",
+    "default_branch": "master",
+    "organization": "dataxu"
+  },
+  "pusher": {
+    "name": "dxbuildmaster",
+    "email": "buildmaster@dataxu.com"
+  }
+}

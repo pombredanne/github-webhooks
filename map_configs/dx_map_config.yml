@@ -51,6 +51,15 @@ push:
 
     - match:
         owner: dataxu
+        branch: "rel-.*"
+        repo: "cms|dxng|user-interface"
+      trigger:
+        job: "{repo}_rel"
+        params:
+            branch: "{branch}"
+
+    - match:
+        owner: dataxu
         repo: "edge|streaming"
         branch: "master-aws|rel-aws|rel-ec2-master"
         no_message: '^\[auto\].*$'
