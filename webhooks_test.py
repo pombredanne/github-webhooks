@@ -90,23 +90,6 @@ class WebhooksTestCase(unittest.TestCase):
         data = self.get_data('/trigger')
         assert data == {'msg': 'nothing done', 'state': 'done'}
 
-    def test_trigger_dev(self):
-        data = self.github_trigger('dev_post_bsm.json')
-        assert data['state'] == 'done'
-        assert data['msg'] == 'triggered github-webhooks_dev-feature job'
-        event_data = self.get_data('/data')['events']
-        assert len(event_data) == 1
-        assert data['event'] == event_data[0]
-        assert 'type' in data['event']
-        assert 'repo' in data['event']
-        assert 'branch' in data['event']
-        assert 'hash' in data['event']
-        assert 'time' in data['event']
-        assert 'pusher' in data['event']
-        assert 'job_name' in data['event']
-        assert 'action' in data['event']
-        assert data['event']['job_name'] == 'github-webhooks_dev-feature'
-
     def test_trigger_rel_new(self):
         data = self.github_trigger('rel_post_bsm_new.json')
         assert data['state'] == 'done'
