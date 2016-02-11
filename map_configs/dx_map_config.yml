@@ -32,15 +32,6 @@ push:
         job: "{repo}_master"
 
     - match:
-        owner: "dataxu"
-        branch: "dev-.*"
-        no_branch: "dev-(auto_pom_update|auto_bump_snaps)"
-      trigger:
-        job: "{repo}_dev-feature"
-        params:
-            branch: "{branch}"
-
-    - match:
         owner: dataxu
         branch: "rel-.*"
         created: true
