@@ -51,8 +51,8 @@ push:
 
     - match:
         owner: dataxu
-        repo: "edge|streaming"
-        branch: "master-aws|rel-aws|rel-ec2-master"
+        repo: "edge"
+        branch: "master-aws|rel-ec2-master"
         no_message: '^\[auto\].*$'
       trigger:
         job: "{repo}_master-aws"
