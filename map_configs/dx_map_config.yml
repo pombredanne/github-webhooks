@@ -84,7 +84,7 @@ pr:
 
 issue:
     - match:
-        repo: "(dxng|user-interface|machine-learning.*|dss-.*|auto-cruise-control|optimization.*|.*data-slicing-service|learning-config|hive-functions|qubole-utilities|spend-predictor|analytics.*|learn-plug|mini-rts|opt-jobs|pacing-configurations)"
+        repo: "(dxng|user-interface|machine-learning.*|dss-.*|auto-cruise-control|optimization|.*data-slicing-service|learning-config|hive-functions|qubole-utilities|spend-predictor|analytics.*|learn-plug|mini-rts|opt-jobs|pacing-configurations)"
         owner: "dataxu"
         message: "(add|remove|replace)[ _-]label.*"
         actions:
