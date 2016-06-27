@@ -106,3 +106,15 @@ issue:
         params:
             repo: "{repo}"
             pr_number: "{issue_number}"
+    - match:
+        repo: "dcommand"
+        owner: "dataxu"
+        message: ".*:shipit:.*"
+        actions:
+          - created
+      trigger:
+        job: "tools_merge-pr-conditional"
+        params:
+            repo: "{repo}"
+            pr_number: "{issue_number}"
+            check_owner_cannot_ship: "true"
