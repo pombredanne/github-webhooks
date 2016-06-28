@@ -59,6 +59,13 @@ push:
         params:
           branch: "{branch}"
 
+    - match:
+        owner: "dataxu"
+        branch: "production"
+        repo: "puppet"
+      trigger:
+        job: "{repo}_production"
+
 pr:
     - match:
         actions:
