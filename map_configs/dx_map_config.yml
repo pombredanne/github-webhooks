@@ -123,6 +123,5 @@ issue:
         job: "tools_github-CD-checks"
         params:
             fork: "{owner}"
-            branch: "{branch}"
             pr_number: "{issue_number}"
             repo: "{repo}"
