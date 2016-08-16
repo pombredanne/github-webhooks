@@ -114,14 +114,15 @@ issue:
             repo: "{repo}"
             pr_number: "{issue_number}"
     - match:
-        repo: "dcommand"
+        repo: "(dcommand|jenkins-jobs)"
         owner: "dataxu"
         message: ".*:shipit:.*"
         actions:
           - created
       trigger:
-        job: "tools_merge-pr-conditional"
+        job: "tools_github-CD-checks"
         params:
-            repo: "{repo}"
+            fork: "{owner}"
+            branch: "{branch}"
             pr_number: "{issue_number}"
-            check_owner_cannot_ship: "true"
+            repo: "{repo}"
