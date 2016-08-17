@@ -122,6 +122,5 @@ issue:
       trigger:
         job: "tools_github-CD-checks"
         params:
-            fork: "{owner}"
             pr_number: "{issue_number}"
             repo: "{repo}"
